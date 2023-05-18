@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from dataclasses import dataclass, asdict
 import json
 
@@ -38,7 +39,8 @@ class Pokemon:
 # ============================================
 # Simulate the CACHE
 # ============================================
-POKEMONS: dict[str, Pokemon] = {}
+TTL = timedelta(seconds=5)
+POKEMONS: dict[str, list[Pokemon, datetime]] = {}
 
 
 def get_pokemon_from_api(name: str) -> Pokemon:
@@ -56,10 +58,14 @@ def _get_pokemon(name) -> Pokemon:
     """
 
     if name in POKEMONS:
-        pokemon = POKEMONS[name]
+        pokemon, created_at = POKEMONS[name]
+
+        if datetime.now() > created_at + TTL:
+            del POKEMONS[name]
+            return _get_pokemon(name)
     else:
         pokemon: Pokemon = get_pokemon_from_api(name)
-        POKEMONS[name] = pokemon
+        POKEMONS[name] = [pokemon, datetime.now()]
 
     return pokemon
 
