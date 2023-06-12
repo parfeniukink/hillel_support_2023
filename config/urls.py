@@ -1,10 +1,10 @@
-from django.urls import path
 from django.contrib import admin
+from django.urls import include, path
 
-from core.api import create_user
-
+from core.api import UserRegistrationAPIView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("users/", create_user),
+    path("users/", UserRegistrationAPIView.as_view()),
+    path("auth/", include("authentication.urls")),
 ]
