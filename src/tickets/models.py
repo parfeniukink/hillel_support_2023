@@ -24,7 +24,7 @@ class Ticket(models.Model):
         db_table = "tickets"
 
 
-class Message(TimeStampMixin):
+class Message(models.Model):
     text = models.TextField()
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.RESTRICT, related_name="messages"
