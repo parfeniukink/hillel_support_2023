@@ -6,5 +6,5 @@ from tickets.api import TicketAPIViewSet, MessageListCreateAPIView
 router = DefaultRouter()
 router.register("", TicketAPIViewSet, basename="tickets")
 urlpatterns = router.urls + [
-    path("<int:ticket_id>/messages", MessageListCreateAPIView.as_view())
+    path("<int:ticket_id>/messages/", MessageListCreateAPIView.as_view())
 ]
