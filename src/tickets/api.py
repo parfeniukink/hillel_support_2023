@@ -1,3 +1,4 @@
+from time import sleep
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.http import Http404
@@ -22,12 +23,31 @@ from users.constants import Role
 User = get_user_model()
 
 
+# def scheduler(id: int, func: Callable, *args, **kwargs):
+#     t = threading.Thread(name=id, target = func, *args, **kwargs)
+#     t.start(daemon=True)
+
+# class SchedulerStatus(StrEnum):
+#     NOT_STARTED = auto()
+#     STARTED = auto()
+#     COMPLETED = auto()
+#     FAILED = auto()
+
+
+# @dataclass
+# class SchedulerResponse:
+#     status: SchedulerStatus
+#     data: Any
+
+
 class TicketAPIViewSet(ModelViewSet):
     serializer_class = TicketSerializer
 
     def get_queryset(self):
         user = self.request.user
         all_tickets = Ticket.objects.all()
+
+        sleep(15)
 
         if user.role == Role.ADMIN:
             return all_tickets
