@@ -138,4 +138,4 @@ SIMPLE_JWT = {
 }
 
 
-CELERY_BROKER_URL = "redis://localhost:6379/0"
+CELERY_BROKER_URL = "redis://broker:6379/0"
